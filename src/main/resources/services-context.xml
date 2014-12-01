@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+
+    <context:component-scan base-package="ru.anr.base.sampleapp.services" />
+
+    <!-- Setting for API to initiallize -->
+    <bean id = "apiConfig" class = "ru.anr.base.services.api.ApiConfig" />
+
+    <bean id="messageConfig" class="ru.anr.base.services.MessagePropertiesConfig" 
+        p:paths-ref="messages"/>
+
+    <util:list id="messages">
+        <value>classpath:/messages/data</value>
+    </util:list>
+    
+    <!-- Security -->
+    <bean id="securityConfig" class="ru.anr.base.services.SecurityConfig" 
+        p:providers-ref="authenticator"/>
+
+    <bean id = "authenticator" 
+        class="org.springframework.security.authentication.dao.DaoAuthenticationProvider" 
+        p:userDetailsService-ref="userDetailsService"
+        p:messageSource-ref="messageSource"
+        p:passwordEncoder-ref="encoder" />
+
+    <bean id = "encoder"
+        class="org.springframework.security.crypto.password.StandardPasswordEncoder" >
+        <constructor-arg value="sdW{}E|ew]2" />
+    </bean>        
+
+</beans>
