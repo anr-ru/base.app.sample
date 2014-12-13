@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
+import ru.anr.base.sampleapp.services.documents.DocumentModel;
 import ru.anr.base.sampleapp.services.users.UserModel;
 import ru.anr.base.sampleapp.services.users.UserModelResponse;
 import ru.anr.base.sampleapp.tests.BaseIntegrationTestCase;
@@ -56,6 +57,8 @@ public class UsersControllerTest extends BaseIntegrationTestCase {
 
         UserModel m = register("Alexey");
 
+        ResponseEntity<String> r = client.get("/api/v1/Ping");
+
         try {
             client.get("/api/v1/users");
             Assert.fail();
@@ -66,11 +69,30 @@ public class UsersControllerTest extends BaseIntegrationTestCase {
         logger.debug("Applying Basic Authorization headers");
         client.setBasicCredentials(m.getLogin(), m.getPassword());
 
-        ResponseEntity<String> r = client.get("/api/v1/users");
+        r = client.get("/api/v1/users");
 
         UserModelResponse rs = json.fromStr(r.getBody(), UserModelResponse.class);
         Assert.assertEquals(m.getFullName(), rs.getFullName());
         Assert.assertEquals(m.getLogin(), rs.getLogin());
+
+        // Test get document
+        DocumentModel dm = new DocumentModel();
+        dm.setContent("111111");
+        r = client.post("/api/v1/documents", json.toStr(dm));
+        DocumentModel rs1 = json.fromStr(r.getBody(), DocumentModel.class);
+        Assert.assertEquals(dm.getContent(), rs1.getContent());
+
+        r = client.get("/api/v1/documents/" + rs1.getId());
+        rs1 = json.fromStr(r.getBody(), DocumentModel.class);
+        Assert.assertEquals(dm.getContent(), rs1.getContent());
+
+        // try {
+        // System.in.read();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+
     }
 
     /**

@@ -19,7 +19,6 @@ import java.time.ZonedDateTime;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlValue;
 
 import ru.anr.base.domain.api.models.RequestModel;
 
@@ -93,7 +92,8 @@ public class DocumentModel extends RequestModel {
     /**
      * @return the content
      */
-    @XmlValue
+    @XmlAttribute(name = "content")
+    // @XmlValue()
     public String getContent() {
 
         return content;

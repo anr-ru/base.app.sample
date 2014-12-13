@@ -10,9 +10,12 @@
     <entry key="api.errorcode.2">Пользователь уже существует</entry>
     <entry key="api.errorcode.3">Синтаксическая ошибка</entry>
     
-    <entry key="api.user.registered">Пользователь "{0}" уже регистрировался</entry>    
+    <entry key="api.user.registered">Пользователь "{0}" уже регистрировался</entry>  
+    <entry key="user.login">Пользователь</entry>  
     <entry key="user.login.is.null">Не указано имя пользователя</entry>
     <entry key="user.password.is.null">Не указан пароль</entry>
+    
+    <entry key="document.content.is.null">Документ должен иметь содержимое</entry>
     
     <entry key="api.param.is.null">Неверный параметр "{0}"</entry>
     

@@ -14,6 +14,7 @@
 
     <!-- Setting for API to initiallize -->
     <bean id = "apiConfig" class = "ru.anr.base.services.api.ApiConfig" />
+    <bean id = "api_ping" class="ru.anr.base.services.api.PingV1ApiCommand" />
 
     <bean id="messageConfig" class="ru.anr.base.services.MessagePropertiesConfig" 
         p:paths-ref="messages"/>

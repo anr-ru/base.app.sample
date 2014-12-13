@@ -3,6 +3,8 @@
  */
 package ru.anr.base.sampleapp.tests;
 
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,15 +51,21 @@ public class BaseAPITestCase extends BaseLocalTestCase {
      *            Http method
      * @param request
      *            Request Modek
+     * @param params
+     *            Params
      * @param contexts
      *            Context arrays ( key/value pairs, usually are parts of url in
      *            REST paradigm)
      * @return String result
      */
-    protected String doAPI(String cmdId, String version, MethodTypes method, RequestModel request, Object... contexts) {
+    protected String doAPI(String cmdId, String version, MethodTypes method, RequestModel request,
+            Map<String, ?> params, Object... contexts) {
 
         APICommand cmd = new APICommand(cmdId, version).addRaw(json.toStr(request)).context(contexts);
         cmd.setType(method);
+        if (params != null) {
+            cmd.params(params);
+        }
 
         APICommand r = factory.process(cmd);
         Assert.assertNotNull(r.getRawModel());

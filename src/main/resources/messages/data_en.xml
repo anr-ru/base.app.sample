@@ -10,9 +10,11 @@
     <entry key="api.errorcode.3">Syntax error</entry>
     
     <entry key="api.user.registered">User "{0}" already registered</entry>
-
+    <entry key="user.login">User</entry>  
     <entry key="user.login.is.null">User login must be provided</entry>
     <entry key="user.password.is.null">User password must be provided</entry>
+    
+    <entry key="document.content.is.null">Document must have content</entry>
     
     <entry key="api.param.is.null">Wrong parameter "{0}"</entry>
     

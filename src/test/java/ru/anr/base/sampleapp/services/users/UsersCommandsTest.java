@@ -41,7 +41,7 @@ public class UsersCommandsTest extends BaseAPITestCase {
      */
     private String doUsers(MethodTypes method, RequestModel rq) {
 
-        return doAPI("users", "v1", method, rq);
+        return doAPI("users", "v1", method, rq, null);
     }
 
     /**
