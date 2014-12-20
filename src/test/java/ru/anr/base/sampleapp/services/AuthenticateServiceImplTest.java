@@ -5,10 +5,12 @@ package ru.anr.base.sampleapp.services;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ru.anr.base.sampleapp.domain.User;
 import ru.anr.base.sampleapp.tests.BaseLocalTestCase;
@@ -25,12 +27,28 @@ import ru.anr.base.sampleapp.tests.BaseLocalTestCase;
 public class AuthenticateServiceImplTest extends BaseLocalTestCase {
 
     /**
+     * 
+     */
+    private static final String PASSWORD = "password";
+
+    /**
+     * 
+     */
+    private static final String ALEX = "alex";
+
+    /**
+     * Ref to password encoder
+     */
+    @Autowired
+    protected PasswordEncoder encoder;
+
+    /**
      * Use case: user not found
      */
     @Test
     public void testUserNotFound() {
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("alex", "password");
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(ALEX, PASSWORD);
 
         try {
             authenticationManager.authenticate(token);
@@ -45,9 +63,9 @@ public class AuthenticateServiceImplTest extends BaseLocalTestCase {
     @Test
     public void testWrongPassword() {
 
-        create(User.class, "login", "alex", "password", encoder.encode("password"));
+        create(User.class, "login", ALEX, PASSWORD, encoder.encode(PASSWORD));
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("alex", "wrong");
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(ALEX, "wrong");
 
         try {
             authenticationManager.authenticate(token);
@@ -62,9 +80,9 @@ public class AuthenticateServiceImplTest extends BaseLocalTestCase {
     @Test
     public void testOKPassword() {
 
-        User u = create(User.class, "login", "alex", "password", encoder.encode("password"));
+        User u = create(User.class, "login", ALEX, PASSWORD, encoder.encode(PASSWORD));
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("alex", "password");
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(ALEX, PASSWORD);
 
         Authentication r = authenticationManager.authenticate(token);
         Assert.assertTrue(r.isAuthenticated());
@@ -79,6 +97,6 @@ public class AuthenticateServiceImplTest extends BaseLocalTestCase {
 
         createAndAuthenticate();
 
-        Assert.assertEquals("alex", SecurityContextHolder.getContext().getAuthentication().getName());
+        Assert.assertEquals(ALEX, SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }
