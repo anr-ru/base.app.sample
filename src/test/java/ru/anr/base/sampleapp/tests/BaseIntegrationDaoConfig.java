@@ -3,14 +3,12 @@
  */
 package ru.anr.base.sampleapp.tests;
 
-import javax.sql.DataSource;
-
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import ru.anr.base.dao.AbstractJPADaoConfig;
 import ru.anr.base.dao.BaseRepositoryFactoryBean;
+import ru.anr.base.sampleapp.dao.UserDao;
 
 /**
  * Integration config (uses JNDI datasource).
@@ -21,31 +19,10 @@ import ru.anr.base.dao.BaseRepositoryFactoryBean;
  *
  */
 @Configuration
-@EnableJpaRepositories(basePackages = { "ru.anr.base.sampleapp.dao" }, //
-repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class)
+@EnableJpaRepositories(basePackageClasses = { UserDao.class }, repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class)
 public class BaseIntegrationDaoConfig extends AbstractJPADaoConfig {
 
     /**
-     * Data source from JNDI
+     * Empty
      */
-    private DataSource jndiDataSource;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @Bean(name = "datasource")
-    public DataSource dataSource() {
-
-        return jndiDataSource;
-    }
-
-    /**
-     * @param jndiDataSource
-     *            the jndiDataSource to set
-     */
-    public void setJndiDataSource(DataSource jndiDataSource) {
-
-        this.jndiDataSource = jndiDataSource;
-    }
 }
