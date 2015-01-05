@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 
+import ru.anr.base.facade.web.api.RestClient;
 import ru.anr.base.services.serializer.Serializer;
 import ru.anr.base.tests.AbstractGlassfishWebTestCase;
-import ru.anr.base.tests.RestClient;
 
 /**
  * Base parent for all integration tests.
