@@ -15,8 +15,11 @@
  */
 package ru.anr.base.sampleapp.services.documents;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,11 +127,17 @@ public class DocumentsCommands extends AbstractApiCommandStrategyImpl {
         Document d = documentManager.get(dm.getId());
         logger.info("Get: {} / {}", dm, d);
         d.setContent(dm.getContent());
-        d.setCreated(dm.getCreated());
+
+        Calendar cal = null;
+        if (dm.getCreated() != null) {
+            cal = Calendar.getInstance(TimeZone.getTimeZone(dm.getCreated().getZone()));
+            cal.setTime(Date.from(dm.getCreated().toInstant()));
+        }
+        d.setCreated(null);
 
         DocumentModel rs = new DocumentModel();
         rs.setContent(d.getContent());
-        rs.setCreated(d.getCreated());
+        rs.setCreated(dm.getCreated());
 
         return rs;
     }
