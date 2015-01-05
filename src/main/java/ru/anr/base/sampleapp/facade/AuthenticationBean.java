@@ -15,16 +15,11 @@
  */
 package ru.anr.base.sampleapp.facade;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.PersistenceUnits;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-
-import ru.anr.base.facade.ejb.AbstractEJBServiceImpl;
+import ru.anr.base.facade.ejb.AbstractAuthenticationBean;
 
 /**
  * Authentication Entry point.
@@ -35,22 +30,10 @@ import ru.anr.base.facade.ejb.AbstractEJBServiceImpl;
  *
  */
 @Stateless(name = "AuthenticationBean", mappedName = "ejb/authenticationBean")
-@Local(AuthenticationManager.class)
 @PersistenceUnits({ @PersistenceUnit(name = "AppUnit/EntityManagerFactory", unitName = "AppUnit") })
-public class AuthenticationBean extends AbstractEJBServiceImpl implements AuthenticationManager {
+public class AuthenticationBean extends AbstractAuthenticationBean {
 
     /**
-     * A reference to a current {@link AuthenticationManager}
+     * Empty
      */
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Authentication authenticate(Authentication authentication) {
-
-        return authenticationManager.authenticate(authentication);
-    }
 }

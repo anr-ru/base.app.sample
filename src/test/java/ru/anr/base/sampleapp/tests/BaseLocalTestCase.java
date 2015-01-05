@@ -3,31 +3,14 @@
  */
 package ru.anr.base.sampleapp.tests;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import ru.anr.base.ApplicationException;
-import ru.anr.base.dao.repository.BaseRepository;
-import ru.anr.base.domain.BaseEntity;
 import ru.anr.base.sampleapp.domain.User;
 import ru.anr.base.sampleapp.services.users.UserManager;
-import ru.anr.base.tests.BaseTestCase;
+import ru.anr.base.services.BaseLocalServiceTestCase;
 
 /**
  * Base parent for all local tests.
@@ -37,56 +20,9 @@ import ru.anr.base.tests.BaseTestCase;
  * @created Nov 27, 2014
  *
  */
-@ContextConfiguration(locations = "classpath:tests-local-context.xml")
+@ContextConfiguration(locations = "classpath:tests-local-context.xml", inheritLocations = false)
 @Ignore
-@Transactional
-@TransactionConfiguration(transactionManager = "transactionManager")
-public class BaseLocalTestCase extends BaseTestCase {
-
-    /**
-     * Base dao ref
-     */
-    @Autowired
-    @Qualifier("BaseRepository")
-    protected BaseRepository<BaseEntity> dao;
-
-    /**
-     * Creation of sample entity with specified list of property name/value
-     * pairs
-     * 
-     * @param entityClass
-     *            Entity class to create
-     * @param propsAndValues
-     *            List of property name/value paits, like: "login",
-     *            "alex","weight", 100
-     * @return Entity instance, stored in database
-     * 
-     * @param <S>
-     *            Entity class
-     */
-    protected <S extends BaseEntity> S create(Class<S> entityClass, Object... propsAndValues) {
-
-        Map<String, Object> map = toMap(propsAndValues);
-
-        S entity = inst(entityClass, new Class<?>[]{}, new Object[]{});
-
-        for (Entry<String, Object> e : map.entrySet()) {
-            try {
-
-                PropertyUtils.setProperty(entity, e.getKey(), e.getValue());
-
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-                throw new ApplicationException(ex);
-            }
-        }
-        return dao.save(entity);
-    }
-
-    /**
-     * Ref to authentication manager
-     */
-    @Autowired
-    protected AuthenticationManager authenticationManager;
+public class BaseLocalTestCase extends BaseLocalServiceTestCase {
 
     /**
      * Performs authentication and when it's successfull - sets security context
@@ -99,20 +35,9 @@ public class BaseLocalTestCase extends BaseTestCase {
      */
     protected User authenticate(String name, String password) {
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(name, password);
-        Authentication r = authenticationManager.authenticate(token);
-
-        Assert.assertTrue(r.isAuthenticated());
-        SecurityContextHolder.getContext().setAuthentication(r);
-
+        super.authenticate(new UsernamePasswordAuthenticationToken(name, password));
         return userManager.getUser();
     }
-
-    /**
-     * Ref to password encoder
-     */
-    @Autowired
-    protected PasswordEncoder encoder;
 
     /**
      * User manager
@@ -137,17 +62,5 @@ public class BaseLocalTestCase extends BaseTestCase {
         u.setFullName("Sample user");
 
         return authenticate(login, pwd);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Before
-    @Override
-    public void setUp() {
-
-        super.setUp();
-
-        SecurityContextHolder.clearContext();
     }
 }
