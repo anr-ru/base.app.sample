@@ -10,8 +10,11 @@ var app = angular.module('app', [ 'ngRoute', 'webControllers', 'restServices' ])
 app.config([ '$routeProvider', function($routeProvider) {
 
     $routeProvider.when('/welcome', {
-            templateUrl: './templates/welcome',
+            templateUrl: './templates/Welcome',
             controller: 'WelcomeCtrl'
+    }).when('/userinfo', {
+        templateUrl: './templates/Userinfo',
+        controller: 'UserInfoCtrl'
     }).otherwise({
         redirectTo: '/welcome'
     });

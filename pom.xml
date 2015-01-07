@@ -121,7 +121,12 @@
             <artifactId>base.facade</artifactId>
             <version>${base.platform.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>ru.anr</groupId>
+            <artifactId>base.web</artifactId>
+            <version>${base.platform.version}</version>
+        </dependency>
+        
         <!-- TESTS -->
         <dependency>
             <groupId>org.springframework</groupId>

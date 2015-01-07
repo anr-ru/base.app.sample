@@ -1,6 +1,32 @@
 <!-- <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> -->
 <div class="container-fluid">
 
-	<h2>Some Bootstrap examples here</h2>
+	<h2>hello</h2>
+	     <p class="help-block">{{labelregister}}</p>
+	<form class="form-inline" role="form" ng-controller="CreateCtrl">
+      <div class="form-group">
+        <label class="sr-only" for="login">Login</label>
+        <input type="login" class="form-control" id="login" ng-model="user.login" placeholder="Enter login">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="password">Password</label>
+        <input type="password" class="form-control" id="password" ng-model="user.password" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="full_name">Full Name</label>
+        <input type="text" class="form-control" id="full_name" ng-model="user.full_name" placeholder="Enter full name">
+      </div>
+      <button class="btn btn-default" ng-click="createUser()">Register user</button>
+    </form>
 
+    <form class="form-horizontal" role="form">
+      <p class="help-block">{{labellogin}}</p>
+      <p class="text-success">{{labelloginsuccess}}</p>
+      <div class="form-group">
+        <div class="col-sm-10">
+           <a href="#/userinfo" class="btn btn-primary" role="button" id="button_login">Login</a>
+        </div>
+      </div>
+    </form>
+    
 </div>

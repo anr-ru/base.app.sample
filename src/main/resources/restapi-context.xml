@@ -34,6 +34,7 @@
 
         <!-- Registration is allowed for an anonymous user -->
         <security:intercept-url pattern="/api/v1/users" access="ROLE_ANONYMOUS" method="POST"/>
+        <security:intercept-url pattern="/api/v1/Ping" access="ROLE_ANONYMOUS,ROLE_USER" method="GET"/>
         <security:intercept-url pattern="/**" access="ROLE_USER" />
     
         <security:custom-filter ref="basicAuthenticationFilter" position="BASIC_AUTH_FILTER"/>

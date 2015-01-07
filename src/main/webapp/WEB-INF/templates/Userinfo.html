@@ -1,0 +1,25 @@
+<!-- <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> -->
+<div class="container-fluid">
+
+	<h2><spring:message code = "user.login" />: {{user.full_name}}</h2>
+	
+    <form class="form-inline" role="form" ng-controller="CreateCtrl">
+      <div class="form-group">
+        <label class="sr-only" for="content">Content</label>
+        <input type="text" class="form-control" id="content" ng-model="newdocument.content" placeholder="Some content here">
+      </div>
+      <button class="btn btn-default" ng-click="createDocument()">Add document</button>
+    </form>
+    
+    <h2>User documents:</h2>
+    <ul class="list-group">
+      <li ng-repeat="document in documents" class="list-group-item">
+         {{$index + 1}} {{document.content}}
+      </li>
+    </ul>
+    
+    <div ng-controller="GetDocumentsCtrl">
+         <p class="text-success">{{endList}}</p>
+         <button type="button" class="btn btn-link" ng-disabled="disabled" ng-click="getDocuments()">Load more</button>
+    </div>
+</div>
