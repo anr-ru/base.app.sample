@@ -30,7 +30,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <packaging>war</packaging>
-    <name>Base Platform Sample Application</name>
+    <name>Base Sample Application</name>
 
     <licenses>
         <license>
