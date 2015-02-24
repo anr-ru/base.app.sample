@@ -36,6 +36,14 @@
     <bean id = "encoder"
         class="org.springframework.security.crypto.password.StandardPasswordEncoder" >
         <constructor-arg value="sdW{}E|ew]2" />
-    </bean>        
+    </bean>
+    
+    <bean id = "aclConfig" class = "ru.anr.base.services.security.ACLConfig" 
+        p:dataSource-ref="datasource"
+        p:aclCacheName="custom"
+        p:authenticationManager-ref="authenticationManager" />
+        
+    <bean id = "aclManager" class = "ru.anr.base.services.security.ACLManagerImpl" />        
+            
 
 </beans>
