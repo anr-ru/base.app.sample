@@ -28,7 +28,7 @@ import ru.anr.base.facade.web.api.AbstractAPIController;
  *
  *
  * @author Aleksey Melkov
- * @created 08 дек. 2014 г.
+ * @created Dec 8, 2014
  *
  */
 @RequestMapping("/api/v1")
