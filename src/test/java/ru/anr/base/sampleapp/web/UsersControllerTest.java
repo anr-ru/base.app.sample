@@ -43,7 +43,7 @@ public class UsersControllerTest extends BaseIntegrationTestCase {
         Assert.assertEquals(HttpStatus.OK, r.getStatusCode());
 
         UserModelResponse rs = json.fromStr(r.getBody(), UserModelResponse.class);
-        Assert.assertEquals(0, rs.getCode());
+        Assert.assertEquals(Integer.valueOf(0), rs.getCode());
 
         return m;
     }
