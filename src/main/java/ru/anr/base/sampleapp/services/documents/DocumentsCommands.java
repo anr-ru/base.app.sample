@@ -35,7 +35,6 @@ import org.springframework.util.CollectionUtils;
 import ru.anr.base.domain.api.APICommand;
 import ru.anr.base.domain.api.APIException;
 import ru.anr.base.domain.api.models.ResponseModel;
-import ru.anr.base.sampleapp.domain.ApiCodes;
 import ru.anr.base.sampleapp.domain.Document;
 import ru.anr.base.sampleapp.services.users.UserManager;
 import ru.anr.base.services.api.AbstractApiCommandStrategyImpl;
@@ -87,7 +86,7 @@ public class DocumentsCommands extends AbstractApiCommandStrategyImpl {
 
             Long id = parse(map.get("id").toString(), Long.class);
             if (id == null) {
-                throw new APIException(text("api.param.is.null", "id"), ApiCodes.API_SYNTAX_ERROR);
+                throw APIException.validation("api.param.is.null", text("api.param.is.null", "id"));
             }
             m = new DocumentModel();
             Document d = documentManager.get(id);

@@ -27,7 +27,6 @@ import ru.anr.base.dao.repository.BaseRepository;
 import ru.anr.base.domain.BaseEntity;
 import ru.anr.base.domain.api.APIException;
 import ru.anr.base.sampleapp.dao.UserDao;
-import ru.anr.base.sampleapp.domain.ApiCodes;
 import ru.anr.base.sampleapp.domain.User;
 import ru.anr.base.sampleapp.domain.UserStates;
 import ru.anr.base.services.BaseDataAwareServiceImpl;
@@ -59,7 +58,7 @@ public class UserManagerImpl extends BaseDataAwareServiceImpl implements UserMan
         User u = dao.getUser(login);
 
         if (u != null) {
-            throw new APIException(text("api.user.registered", login), ApiCodes.API_USER_EXISTS);
+            throw APIException.validation("api.user.registered", text("api.user.registered", login));
         }
 
         u = new User();
