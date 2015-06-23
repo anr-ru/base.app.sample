@@ -56,7 +56,7 @@ public class UserManagerImplTest extends BaseLocalTestCase {
         try {
             manager.createUser(LOGIN, "yy");
         } catch (APIException ex) {
-            Assert.assertEquals(2, ex.getErrorCode());
+            Assert.assertEquals(-1, ex.getErrorCode());
             Assert.assertEquals("User \"x\" already registered", ex.getMessage());
         }
     }
