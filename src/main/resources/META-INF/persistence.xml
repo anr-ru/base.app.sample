@@ -26,7 +26,7 @@
             <property name="hibernate.transaction.factory_class" value="org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory" />
 
             <!-- ddl auto update for test database -->
-            <property name="hibernate.hbm2ddl.auto" value="update"/>            
+            <property name="hibernate.hbm2ddl.auto" value="create"/>            
 
             <property name="hibernate.cache.use_second_level_cache" value="true" />
             <property name="hibernate.cache.use_query_cache" value="true" />

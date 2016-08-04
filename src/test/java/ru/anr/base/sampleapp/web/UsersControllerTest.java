@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
+import ru.anr.base.facade.web.api.RestClient;
 import ru.anr.base.sampleapp.services.documents.DocumentModel;
 import ru.anr.base.sampleapp.services.users.UserModel;
 import ru.anr.base.sampleapp.services.users.UserModelResponse;
@@ -39,7 +40,9 @@ public class UsersControllerTest extends BaseIntegrationTestCase {
         m.setPassword("DerPassword");
         m.setFullName(fullName);
 
-        ResponseEntity<String> r = client.post("/api/v1/users", json.toStr(m));
+        RestClient c = new RestClient();
+
+        ResponseEntity<String> r = c.post("/api/v1/users", json.toStr(m));
         Assert.assertEquals(HttpStatus.OK, r.getStatusCode());
 
         UserModelResponse rs = json.fromStr(r.getBody(), UserModelResponse.class);
