@@ -104,7 +104,7 @@ public class BasicDaoTest extends BaseLocalTestCase {
         /*
          * Using pages
          */
-        Pageable p = new PageRequest(0, 10, Direction.ASC, "owner,id");
+        Pageable p = new PageRequest(0, 10, Direction.ASC, "owner", "id");
 
         // Use case: no documents
         Assert.assertEquals(0, documentDao.getDocuments(u, p).getTotalElements());
