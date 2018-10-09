@@ -1,2 +1,8 @@
 /target
-/derby.log
+
+/.settings
+.pmd
+.project
+.classpath
+
+*.log
